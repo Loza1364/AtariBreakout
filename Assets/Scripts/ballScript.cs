@@ -27,4 +27,12 @@ public class ballScript : MonoBehaviour
             rb.linearVelocity = Vector3.ClampMagnitude(rb.linearVelocity, maxVeclocity);
         }
     }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.CompareTag("Brick"))
+        {
+            Destroy(other.gameObject);
+        }
+    }
 }
