@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class ballScript : MonoBehaviour
 {
@@ -7,6 +8,9 @@ public class ballScript : MonoBehaviour
     public float maxVeclocity = 15f;
 
     private Rigidbody2D rb;
+
+    int score = 0;
+    int lives = 5;
     
     void Start()
     {
@@ -18,8 +22,9 @@ public class ballScript : MonoBehaviour
     {
         if(transform.position.y < minY)
         {
-            transform.position = Vector3.zero;
+            transform.position = new Vector3(0,-3,transform.position.z);
             rb.linearVelocity = Vector3.zero;
+            lives--;
         }
 
         if(rb.linearVelocity.magnitude > maxVeclocity)
@@ -33,6 +38,7 @@ public class ballScript : MonoBehaviour
         if (other.gameObject.CompareTag("Brick"))
         {
             Destroy(other.gameObject);
+            score++;
         }
     }
 }
