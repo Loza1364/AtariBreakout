@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
+using TMPro;
 
 public class ballScript : MonoBehaviour
 {
@@ -8,6 +9,10 @@ public class ballScript : MonoBehaviour
     public float maxVeclocity = 15f;
 
     private Rigidbody2D rb;
+    public TextMeshPro scoreText;
+    public GameObject[] Lives;
+
+    public GameObject gameOverPanel;
 
     int score = 0;
     int lives = 5;
@@ -22,9 +27,17 @@ public class ballScript : MonoBehaviour
     {
         if(transform.position.y < minY)
         {
-            transform.position = new Vector3(0,-3,transform.position.z);
-            rb.linearVelocity = Vector3.zero;
-            lives--;
+            if (lives <= 0)
+            {
+                GameOver();
+            }
+            else
+            {
+                transform.position = new Vector3(0, -3, transform.position.z);
+                rb.linearVelocity = Vector3.zero;
+                lives--;
+                Lives[lives].SetActive(false);
+            }
         }
 
         if(rb.linearVelocity.magnitude > maxVeclocity)
@@ -39,6 +52,13 @@ public class ballScript : MonoBehaviour
         {
             Destroy(other.gameObject);
             score++;
+            scoreText.text = score.ToString("00000");
         }
+    }
+    void GameOver()
+    {
+        gameOverPanel.SetActive(true);
+        Time.timeScale = 0;
+        Destroy(gameObject);
     }
 }
