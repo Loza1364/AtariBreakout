@@ -19,5 +19,13 @@ public class NewMonoBehaviourScript : MonoBehaviour
         {
             transform.position += Vector3.right * xInput * xSpeed * Time.deltaTime;
         }
+        if (Input.GetMouseButton(0))
+        {
+            transform.position = new Vector3(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, transform.position.y, transform.position.z);
+            if (Mathf.Abs(transform.position.x) > maxX)
+            {
+                transform.position = new Vector3(Mathf.Sign(transform.position.x) * maxX, transform.position.y, transform.position.z);
+            }
+        }
     }
 }

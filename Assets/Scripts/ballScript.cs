@@ -13,6 +13,7 @@ public class ballScript : MonoBehaviour
     public GameObject[] Lives;
 
     public GameObject gameOverPanel;
+    private audioManager audioManager;
 
     int score = 0;
     int lives = 5;
@@ -20,6 +21,7 @@ public class ballScript : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        audioManager = FindFirstObjectByType<audioManager>();
     }
 
 
@@ -27,6 +29,7 @@ public class ballScript : MonoBehaviour
     {
         if(transform.position.y < minY)
         {
+            audioManager.SFX(audioManager.dead);
             if (lives <= 0)
             {
                 GameOver();
@@ -50,6 +53,7 @@ public class ballScript : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Brick"))
         {
+            audioManager.SFX(audioManager.bounce);
             Destroy(other.gameObject);
             score++;
             scoreText.text = score.ToString("00000");

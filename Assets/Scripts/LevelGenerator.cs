@@ -7,6 +7,7 @@ public class LevelGenerator : MonoBehaviour
     public Vector2Int size;
     public Vector2 offset;
     public Gradient gradient;
+    private audioManager audioManager;
 
     void Awake()
     {
@@ -20,9 +21,14 @@ public class LevelGenerator : MonoBehaviour
             }
         }
     }
+    private void Start()
+    {
+        audioManager = FindFirstObjectByType<audioManager>();
+    }
     public void Restart()
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        audioManager.SFX(audioManager.click);
     }
 }
