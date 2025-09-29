@@ -53,10 +53,14 @@ public class ballScript : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Brick"))
         {
-            audioManager.SFX(audioManager.bounce);
+            audioManager.SFX(audioManager.dead);
             Destroy(other.gameObject);
             score++;
             scoreText.text = score.ToString("00000");
+        }
+        else
+        {
+            audioManager.SFX(audioManager.bounce);
         }
     }
     void GameOver()
